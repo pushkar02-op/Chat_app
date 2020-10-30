@@ -1,5 +1,7 @@
+import 'package:chat/pages/chat.dart';
 import 'package:chat/pages/home.dart';
 import 'package:chat/pages/login.dart';
+import 'package:chat/pages/mypic.dart';
 import 'package:chat/pages/reg.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +17,8 @@ void main() {
         '/': (context) => Home(),
         '/login': (context) => Login(),
         '/reg': (context) => Reg(),
+        '/mypic': (context) => MyImage(),
+        '/chat': (context) => Chat(),
       },
     ),
   );

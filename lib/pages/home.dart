@@ -9,11 +9,28 @@ class Home extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-            child: MaterialButton(
-                child: Text('Resister'),
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MaterialButton(
+                elevation: 10,
+                color: Colors.amber,
+                child: Text('Register'),
                 onPressed: () {
                   Navigator.pushNamed(context, "/reg");
-                })),
+                }),
+            SizedBox(
+              height: 40,
+            ),
+            MaterialButton(
+                elevation: 10,
+                color: Colors.amber,
+                child: Text('Login'),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/login");
+                }),
+          ],
+        )),
       ),
     );
   }
