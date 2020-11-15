@@ -14,6 +14,8 @@ class _ChatState extends State<Chat> {
   var authc = FirebaseAuth.instance;
 
   String chatmsg;
+  int selected;
+  var msgSender;
 
   @override
   Widget build(BuildContext context) {
@@ -31,42 +33,68 @@ class _ChatState extends State<Chat> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 StreamBuilder<QuerySnapshot>(
+                  stream: fs
+                      .collection("chat")
+                      .orderBy("time", descending: true)
+                      .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.data == null) {
-                      return CircularProgressIndicator();
+                      return Center(child: CircularProgressIndicator());
                     }
+                    // print(snapshot.);
                     var msg = snapshot.data.docs;
                     List<Widget> y = [];
                     for (var d in msg) {
                       var msgText = d.data()['text'];
-                      var msgSender = d.data()['sender'];
+                      msgSender = d.data()['sender'];
                       var msgWidget = Text("$msgText : $msgSender");
-                      // if (msgSender == signInUser) {
-                      // } else {}
 
                       y.add(msgWidget);
+                      // print(y);
                     }
-
-                    //print(y);
-
                     return Container(
                         height: deviceheight * 0.8,
                         width: deviceWidth * 0.9,
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount: y.length,
+                            reverse: true,
                             itemBuilder: (BuildContext context, int index) {
-                              return new ListTile(
-                                title: y[index],
-                              );
+                              if (msgSender == signInUser) {
+                                return Container(
+                                  // alignment: Alignment.centerRight,
+                                  child: new ListTile(
+                                    title: y[index],
+                                    hoverColor: Colors.blue,
+                                    //leading: FlutterLogo(size: 56.0),
+                                    selected: index == selected,
+                                    onTap: () {
+                                      setState(() {
+                                        selected = index;
+                                      });
+                                    },
+                                    contentPadding: EdgeInsets.all(0.5),
+                                    selectedTileColor:
+                                        Colors.lightBlue.shade100,
+                                  ),
+                                );
+                              } else {
+                                return new ListTile(
+                                  title: y[index],
+                                  hoverColor: Colors.blue,
+                                  //leading: FlutterLogo(size: 56.0),
+                                  // selected: index == selected,
+                                  // onTap: () {
+                                  //   setState(() {
+                                  //     selected = index;
+                                  //   });
+                                  // },
+                                  contentPadding: EdgeInsets.all(0.5),
+                                  selectedTileColor: Colors.lightBlue.shade100,
+                                );
+                              }
                             }));
-                    // return Container(
-                    //   child: Column(
-                    //     children: y,
-                    //   ),
-                    // );
                   },
-                  stream: fs.collection("chat").snapshots(),
                 ),
                 Row(
                   children: <Widget>[
@@ -85,15 +113,18 @@ class _ChatState extends State<Chat> {
                     ),
                     Container(
                       width: deviceWidth * 0.20,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                          border: Border.all(), shape: BoxShape.circle),
                       child: FlatButton(
-                        child: Text('send'),
+                        child: Icon(Icons.send_rounded,
+                            size: 50, color: Colors.blue),
                         onPressed: () async {
                           msgtextcontroller.clear();
 
                           await fs.collection("chat").add({
                             "text": chatmsg,
                             "sender": signInUser,
+                            "time": DateTime.now().millisecondsSinceEpoch,
                           });
                           print(signInUser);
                         },
