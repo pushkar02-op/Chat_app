@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "242651442022",
+    "firebase_url": "https://chatapp-4f93f.firebaseio.com",
+    "project_id": "chatapp-4f93f",
+    "storage_bucket": "chatapp-4f93f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242651442022:android:d5d998eb93bff2c0bc76a7",
+        "android_client_info": {
+          "package_name": "com.pushkar.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242651442022-finiivbilgvg3rcs8huf4lftmghk38j8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVsLjRwlEZcvZz1eIawqslsAVsJDq15-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242651442022-finiivbilgvg3rcs8huf4lftmghk38j8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
